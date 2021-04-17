@@ -1,0 +1,5 @@
+<RCC>
+  <qresource prefix="newPrefix">
+    <file>ITPTIT-01.png</file>
+  </qresource>
+</RCC>
