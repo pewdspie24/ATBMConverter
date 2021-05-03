@@ -13,8 +13,8 @@ class Ui_MainWindow(object):
     def setupUi(self, MainWindow):
         MainWindow.setObjectName("MainWindow")
         MainWindow.resize(720, 514)
-        MainWindow.setWindowOpacity(100.0)
-        MainWindow.setWindowIcon(QtGui.QIcon('.\ITPTIT-01.png'))
+        MainWindow.setWindowOpacity(1.0)
+        MainWindow.setWindowIcon(QtGui.QIcon('.\ITPTIT-01.ico'))
         self.centralwidget = QtWidgets.QWidget(MainWindow)
         self.centralwidget.setObjectName("centralwidget")
         self.general = QtWidgets.QTabWidget(self.centralwidget)
@@ -630,13 +630,13 @@ class Ui_MainWindow(object):
         self.keySize_de.setItemText(1, _translate("MainWindow", "192"))
         self.keySize_de.setItemText(2, _translate("MainWindow", "256"))
         self.mode_de.setItemText(0, _translate("MainWindow", "ECB"))
-        self.mode_de.setItemText(1, _translate("MainWindow", "CBC"))
+        self.mode_de.setItemText(1, _translate("MainWindow", "CFB"))
         self.label_59.setText(_translate("MainWindow", "<html><head/><body><p><span style=\" font-size:12pt; color:#0055ff;\">Key Size:</span></p></body></html>"))
         self.label_60.setText(_translate("MainWindow", "<html><head/><body><p><span style=\" font-size:12pt; color:#0055ff;\">Mode:</span></p></body></html>"))
         self.label_61.setText(_translate("MainWindow", "<html><head/><body><p><span style=\" font-size:12pt; color:#0055ff;\">Mode:</span></p></body></html>"))
         self.label_62.setText(_translate("MainWindow", "<html><head/><body><p><span style=\" font-size:12pt; color:#0055ff;\">Key Size:</span></p></body></html>"))
         self.mode_en.setItemText(0, _translate("MainWindow", "ECB"))
-        self.mode_en.setItemText(1, _translate("MainWindow", "CBC"))
+        self.mode_en.setItemText(1, _translate("MainWindow", "CFB"))
         self.keySize_en.setItemText(0, _translate("MainWindow", "128"))
         self.keySize_en.setItemText(1, _translate("MainWindow", "192"))
         self.keySize_en.setItemText(2, _translate("MainWindow", "256"))
@@ -709,12 +709,19 @@ class Ui_MainWindow(object):
             res = convert1.Octimal(o)
         if len(b64):
             res = convert1.Base64(b64)
-        self.asciiBox.setText(res[0])
-        self.decBox.setText(res[1])
-        self.binBox.setText(res[2])
-        self.hexBox.setText(res[3])
-        self.octBox.setText(res[4])
-        self.b64Box.setText(res[5])
+        if(res == 'Error'):
+            msg = QMessageBox()
+            msg.setWindowTitle('Error')
+            msg.setText("Invalid Value!")
+            msg.setIcon(QMessageBox.Critical)
+            x = msg.exec_()
+        else:
+            self.asciiBox.setText(res[0])
+            self.decBox.setText(res[1])
+            self.binBox.setText(res[2])
+            self.hexBox.setText(res[3])
+            self.octBox.setText(res[4])
+            self.b64Box.setText(res[5])
     
     def ceasar_de(self):
         text = self.ci_de_cea.toPlainText()
@@ -878,11 +885,12 @@ class Ui_MainWindow(object):
             else:
                 self.en_de_aes.setPlainText(a)
 
-
 if __name__ == "__main__":
+    import sys
     app = QtWidgets.QApplication(sys.argv)
     MainWindow = QtWidgets.QMainWindow()
     ui = Ui_MainWindow()
     ui.setupUi(MainWindow)
     MainWindow.show()
     sys.exit(app.exec_())
+
