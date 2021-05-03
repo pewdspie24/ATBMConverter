@@ -14,7 +14,7 @@ class Ui_MainWindow(object):
         MainWindow.setObjectName("MainWindow")
         MainWindow.resize(720, 514)
         MainWindow.setWindowOpacity(1.0)
-        MainWindow.setWindowIcon(QtGui.QIcon('.\ITPTIT-01.png'))
+        MainWindow.setWindowIcon(QtGui.QIcon('.\ITPTIT-01.ico'))
         self.centralwidget = QtWidgets.QWidget(MainWindow)
         self.centralwidget.setObjectName("centralwidget")
         self.general = QtWidgets.QTabWidget(self.centralwidget)
