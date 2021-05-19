@@ -727,13 +727,27 @@ class Ui_MainWindow(object):
         text = self.ci_de_cea.toPlainText()
         shift = self.spin_de_cea.value()
         res = ceasar.decode(text, shift)
-        self.pl_de_cea.setPlainText(res)
+        if res != 'Error':
+            self.pl_de_cea.setPlainText(res)
+        else:
+            msg = QMessageBox()
+            msg.setWindowTitle('Error')
+            msg.setText("Invalid Value, please insert Alphabet character!")
+            msg.setIcon(QMessageBox.Warning)
+            x = msg.exec_()
 
     def ceasar_en(self):
         text = self.pl_en_cea.toPlainText()
         shift = self.spin_en_cea.value()
         res = ceasar.encode(text, shift)
-        self.ci_en_cea.setPlainText(res)
+        if res != 'Error':
+            self.ci_en_cea.setPlainText(res)
+        else:
+            msg = QMessageBox()
+            msg.setWindowTitle('Error')
+            msg.setText("Invalid Value, please insert Alphabet character!")
+            msg.setIcon(QMessageBox.Warning)
+            x = msg.exec_()
 
     def sub_de(self):
         text = self.ci_de_sub.toPlainText()
@@ -745,7 +759,7 @@ class Ui_MainWindow(object):
         else:
             msg = QMessageBox()
             msg.setWindowTitle('Error')
-            msg.setText("Invalid Value!")
+            msg.setText("Invalid Value or Corrupted Alphabet!")
             msg.setIcon(QMessageBox.Warning)
             x = msg.exec_()
 
@@ -759,7 +773,7 @@ class Ui_MainWindow(object):
         else:
             msg = QMessageBox()
             msg.setWindowTitle('Error')
-            msg.setText("Invalid Value!")
+            msg.setText("Invalid Value or Corrupted Alphabet!")
             msg.setIcon(QMessageBox.Warning)
             x = msg.exec_()
         
@@ -768,7 +782,14 @@ class Ui_MainWindow(object):
         key = self.key_de_vig.text()
         if len(key) >= 2:
             res = vigenere.decode(text, key)
-            self.pl_de_vig.setPlainText(res)
+            if res == 'Error':
+                msg = QMessageBox()
+                msg.setWindowTitle('Error')
+                msg.setText("Space is not allowed!")
+                msg.setIcon(QMessageBox.Warning)
+                x = msg.exec_()
+            else:
+                self.pl_de_vig.setPlainText(res)
         else:
             msg = QMessageBox()
             msg.setWindowTitle('Error')
@@ -781,7 +802,14 @@ class Ui_MainWindow(object):
         key = self.key_en_vig.text()
         if len(key) >= 2:
             res = vigenere.encode(text, key)
-            self.ci_en_vig.setPlainText(res)
+            if res == 'Error':
+                msg = QMessageBox()
+                msg.setWindowTitle('Error')
+                msg.setText("Space is not allowed!")
+                msg.setIcon(QMessageBox.Warning)
+                x = msg.exec_()
+            else:
+                self.ci_en_vig.setPlainText(res)
         else:
             msg = QMessageBox()
             msg.setWindowTitle('Error')

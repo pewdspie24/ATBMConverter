@@ -2,7 +2,7 @@ import hashlib
 import zlib
 
 def md5(text):
-    text = text.encode()
+    text = text.encode() #binascii
     return hashlib.md5(text).hexdigest()
 def rip(text):
     text = text.encode()
@@ -24,5 +24,5 @@ def crc32(text):
     return hex(zlib.crc32(text)& 0xffffffff)[2:]
 
 if __name__ == '__main__':
-    print(sha_3('GeeksforGeeks'))
+    print(sha_3('abc'))
     print(crc32('abc'))
